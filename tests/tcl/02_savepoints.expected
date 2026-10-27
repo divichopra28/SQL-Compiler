@@ -1,0 +1,103 @@
+
+SQL> START TRANSACTION;
+Query OK: transaction 1 started (state: ACTIVE).
+
+SQL> UPDATE students SET cgpa = 7.0 WHERE id = 1;
+Query OK: 1 row updated in 'students'.
+
+SQL> SAVEPOINT sp1;
+Query OK: savepoint 'sp1' created in transaction 1.
+
+SQL> UPDATE students SET cgpa = 9.0 WHERE id = 1;
+Query OK: 1 row updated in 'students'.
+
+SQL> SAVEPOINT sp2;
+Query OK: savepoint 'sp2' created in transaction 1.
+
+SQL> DELETE FROM courses WHERE cid = 106;
+Query OK: 1 row deleted from 'courses'.
+
+SQL> SHOW TRANSACTION;
+Transaction ID    : 1
+Transaction State : ACTIVE
+Savepoints        : sp1 -> sp2
+Pending Operations: 3
+    1. UPDATE students  (1 row)
+    -- SAVEPOINT sp1 --
+    2. UPDATE students  (1 row)
+    -- SAVEPOINT sp2 --
+    3. DELETE FROM courses  (1 row)
+
+SQL> ROLLBACK TO SAVEPOINT sp1;
+Query OK: rolled back to savepoint 'sp1' - 2 operations undone, transaction 1 still ACTIVE.
+
+SQL> SHOW TRANSACTION;
+Transaction ID    : 1
+Transaction State : ACTIVE
+Savepoints        : sp1
+Pending Operations: 1
+    1. UPDATE students  (1 row)
+    -- SAVEPOINT sp1 --
+
+SQL> SELECT id, cgpa FROM students WHERE id = 1;
++----+------+
+| id | cgpa |
++----+------+
+|  1 |  7.0 |
++----+------+
+1 row in set
+
+SQL> SELECT COUNT(*) FROM courses;
++----------+
+| COUNT(*) |
++----------+
+|        6 |
++----------+
+1 row in set
+
+SQL> INSERT INTO students VALUES (1, 'Duplicate', 20, 5.0, NULL, 'IT');
+[EXECUTION ERROR] PRIMARY KEY violated on 'students': duplicate value (id = 1) (INSERT)
+Statement rolled back - no changes were made (the transaction is still ACTIVE).
+
+SQL> SELECT id, cgpa FROM students WHERE id = 1;
++----+------+
+| id | cgpa |
++----+------+
+|  1 |  7.0 |
++----+------+
+1 row in set
+
+SQL> RELEASE SAVEPOINT sp1;
+Query OK: savepoint 'sp1' released.
+
+SQL> COMMIT;
+Query OK: transaction 1 COMMITTED - 1 operation made permanent.
+
+SQL> SELECT id, cgpa FROM students WHERE id = 1;
++----+------+
+| id | cgpa |
++----+------+
+|  1 |  7.0 |
++----+------+
+1 row in set
+
+SQL> SAVEPOINT auto_sp;
+NOTE: transaction 2 started implicitly.
+Query OK: savepoint 'auto_sp' created in transaction 2.
+
+SQL> UPDATE students SET cgpa = 1.0 WHERE id = 2;
+Query OK: 1 row updated in 'students'.
+
+SQL> ROLLBACK TO auto_sp;
+Query OK: rolled back to savepoint 'auto_sp' - 1 operation undone, transaction 2 still ACTIVE.
+
+SQL> ROLLBACK;
+Query OK: transaction 2 ROLLED BACK - 0 operations undone.
+
+SQL> SELECT id, cgpa FROM students WHERE id = 2;
++----+------+
+| id | cgpa |
++----+------+
+|  2 |  9.1 |
++----+------+
+1 row in set

@@ -1,0 +1,213 @@
+
+SQL> SELECT * FROM students;
++----+--------+-----+------+--------------------+--------+
+| id | name   | age | cgpa | email              | branch |
++----+--------+-----+------+--------------------+--------+
+|  1 | Rahul  |  20 |  8.5 | rahul@college.edu  | CSE    |
+|  2 | Priya  |  21 |  9.1 | priya@college.edu  | CSE    |
+|  3 | Aarav  |  19 |  7.4 | NULL               | IT     |
+|  4 | Ananya |  22 |  8.9 | ananya@college.edu | ECE    |
+|  5 | Vikram |  20 |  6.8 | NULL               | IT     |
+|  6 | Sneha  |  18 |  9.4 | sneha@college.edu  | ECE    |
++----+--------+-----+------+--------------------+--------+
+6 rows in set
+
+SQL> SELECT name, age, cgpa FROM students;
++--------+-----+------+
+| name   | age | cgpa |
++--------+-----+------+
+| Rahul  |  20 |  8.5 |
+| Priya  |  21 |  9.1 |
+| Aarav  |  19 |  7.4 |
+| Ananya |  22 |  8.9 |
+| Vikram |  20 |  6.8 |
+| Sneha  |  18 |  9.4 |
++--------+-----+------+
+6 rows in set
+
+SQL> SELECT * FROM students WHERE cgpa > 8;
++----+--------+-----+------+--------------------+--------+
+| id | name   | age | cgpa | email              | branch |
++----+--------+-----+------+--------------------+--------+
+|  1 | Rahul  |  20 |  8.5 | rahul@college.edu  | CSE    |
+|  2 | Priya  |  21 |  9.1 | priya@college.edu  | CSE    |
+|  4 | Ananya |  22 |  8.9 | ananya@college.edu | ECE    |
+|  6 | Sneha  |  18 |  9.4 | sneha@college.edu  | ECE    |
++----+--------+-----+------+--------------------+--------+
+4 rows in set
+
+SQL> SELECT name FROM students WHERE age = 20;
++--------+
+| name   |
++--------+
+| Rahul  |
+| Vikram |
++--------+
+2 rows in set
+
+SQL> SELECT name FROM students WHERE branch != 'CSE';
++--------+
+| name   |
++--------+
+| Aarav  |
+| Ananya |
+| Vikram |
+| Sneha  |
++--------+
+4 rows in set
+
+SQL> SELECT name FROM students WHERE branch <> 'IT';
++--------+
+| name   |
++--------+
+| Rahul  |
+| Priya  |
+| Ananya |
+| Sneha  |
++--------+
+4 rows in set
+
+SQL> SELECT name FROM students WHERE age >= 20 AND age <= 21;
++--------+
+| name   |
++--------+
+| Rahul  |
+| Priya  |
+| Vikram |
++--------+
+3 rows in set
+
+SQL> SELECT * FROM students WHERE age > 18 AND cgpa > 8;
++----+--------+-----+------+--------------------+--------+
+| id | name   | age | cgpa | email              | branch |
++----+--------+-----+------+--------------------+--------+
+|  1 | Rahul  |  20 |  8.5 | rahul@college.edu  | CSE    |
+|  2 | Priya  |  21 |  9.1 | priya@college.edu  | CSE    |
+|  4 | Ananya |  22 |  8.9 | ananya@college.edu | ECE    |
++----+--------+-----+------+--------------------+--------+
+3 rows in set
+
+SQL> SELECT * FROM students WHERE branch = 'CSE' OR branch = 'IT';
++----+--------+-----+------+-------------------+--------+
+| id | name   | age | cgpa | email             | branch |
++----+--------+-----+------+-------------------+--------+
+|  1 | Rahul  |  20 |  8.5 | rahul@college.edu | CSE    |
+|  2 | Priya  |  21 |  9.1 | priya@college.edu | CSE    |
+|  3 | Aarav  |  19 |  7.4 | NULL              | IT     |
+|  5 | Vikram |  20 |  6.8 | NULL              | IT     |
++----+--------+-----+------+-------------------+--------+
+4 rows in set
+
+SQL> SELECT * FROM students WHERE NOT age < 20;
++----+--------+-----+------+--------------------+--------+
+| id | name   | age | cgpa | email              | branch |
++----+--------+-----+------+--------------------+--------+
+|  1 | Rahul  |  20 |  8.5 | rahul@college.edu  | CSE    |
+|  2 | Priya  |  21 |  9.1 | priya@college.edu  | CSE    |
+|  4 | Ananya |  22 |  8.9 | ananya@college.edu | ECE    |
+|  5 | Vikram |  20 |  6.8 | NULL               | IT     |
++----+--------+-----+------+--------------------+--------+
+4 rows in set
+
+SQL> SELECT * FROM students WHERE age > 18 AND cgpa > 8 OR branch = 'IT';
++----+--------+-----+------+--------------------+--------+
+| id | name   | age | cgpa | email              | branch |
++----+--------+-----+------+--------------------+--------+
+|  1 | Rahul  |  20 |  8.5 | rahul@college.edu  | CSE    |
+|  2 | Priya  |  21 |  9.1 | priya@college.edu  | CSE    |
+|  3 | Aarav  |  19 |  7.4 | NULL               | IT     |
+|  4 | Ananya |  22 |  8.9 | ananya@college.edu | ECE    |
+|  5 | Vikram |  20 |  6.8 | NULL               | IT     |
++----+--------+-----+------+--------------------+--------+
+5 rows in set
+
+SQL> SELECT * FROM students WHERE age BETWEEN 18 AND 20;
++----+--------+-----+------+-------------------+--------+
+| id | name   | age | cgpa | email             | branch |
++----+--------+-----+------+-------------------+--------+
+|  1 | Rahul  |  20 |  8.5 | rahul@college.edu | CSE    |
+|  3 | Aarav  |  19 |  7.4 | NULL              | IT     |
+|  5 | Vikram |  20 |  6.8 | NULL              | IT     |
+|  6 | Sneha  |  18 |  9.4 | sneha@college.edu | ECE    |
++----+--------+-----+------+-------------------+--------+
+4 rows in set
+
+SQL> SELECT * FROM students WHERE age NOT BETWEEN 18 AND 20;
++----+--------+-----+------+--------------------+--------+
+| id | name   | age | cgpa | email              | branch |
++----+--------+-----+------+--------------------+--------+
+|  2 | Priya  |  21 |  9.1 | priya@college.edu  | CSE    |
+|  4 | Ananya |  22 |  8.9 | ananya@college.edu | ECE    |
++----+--------+-----+------+--------------------+--------+
+2 rows in set
+
+SQL> SELECT * FROM students WHERE branch IN ('CSE', 'IT', 'ECE');
++----+--------+-----+------+--------------------+--------+
+| id | name   | age | cgpa | email              | branch |
++----+--------+-----+------+--------------------+--------+
+|  1 | Rahul  |  20 |  8.5 | rahul@college.edu  | CSE    |
+|  2 | Priya  |  21 |  9.1 | priya@college.edu  | CSE    |
+|  3 | Aarav  |  19 |  7.4 | NULL               | IT     |
+|  4 | Ananya |  22 |  8.9 | ananya@college.edu | ECE    |
+|  5 | Vikram |  20 |  6.8 | NULL               | IT     |
+|  6 | Sneha  |  18 |  9.4 | sneha@college.edu  | ECE    |
++----+--------+-----+------+--------------------+--------+
+6 rows in set
+
+SQL> SELECT * FROM students WHERE branch NOT IN ('CSE');
++----+--------+-----+------+--------------------+--------+
+| id | name   | age | cgpa | email              | branch |
++----+--------+-----+------+--------------------+--------+
+|  3 | Aarav  |  19 |  7.4 | NULL               | IT     |
+|  4 | Ananya |  22 |  8.9 | ananya@college.edu | ECE    |
+|  5 | Vikram |  20 |  6.8 | NULL               | IT     |
+|  6 | Sneha  |  18 |  9.4 | sneha@college.edu  | ECE    |
++----+--------+-----+------+--------------------+--------+
+4 rows in set
+
+SQL> SELECT * FROM students WHERE name LIKE 'A%';
++----+--------+-----+------+--------------------+--------+
+| id | name   | age | cgpa | email              | branch |
++----+--------+-----+------+--------------------+--------+
+|  3 | Aarav  |  19 |  7.4 | NULL               | IT     |
+|  4 | Ananya |  22 |  8.9 | ananya@college.edu | ECE    |
++----+--------+-----+------+--------------------+--------+
+2 rows in set
+
+SQL> SELECT * FROM students WHERE name LIKE '_r%';
++----+-------+-----+------+-------------------+--------+
+| id | name  | age | cgpa | email             | branch |
++----+-------+-----+------+-------------------+--------+
+|  2 | Priya |  21 |  9.1 | priya@college.edu | CSE    |
++----+-------+-----+------+-------------------+--------+
+1 row in set
+
+SQL> SELECT * FROM students WHERE name NOT LIKE '%a';
++----+--------+-----+------+-------------------+--------+
+| id | name   | age | cgpa | email             | branch |
++----+--------+-----+------+-------------------+--------+
+|  1 | Rahul  |  20 |  8.5 | rahul@college.edu | CSE    |
+|  3 | Aarav  |  19 |  7.4 | NULL              | IT     |
+|  5 | Vikram |  20 |  6.8 | NULL              | IT     |
++----+--------+-----+------+-------------------+--------+
+3 rows in set
+
+SQL> SELECT * FROM students WHERE email IS NULL;
++----+--------+-----+------+-------+--------+
+| id | name   | age | cgpa | email | branch |
++----+--------+-----+------+-------+--------+
+|  3 | Aarav  |  19 |  7.4 | NULL  | IT     |
+|  5 | Vikram |  20 |  6.8 | NULL  | IT     |
++----+--------+-----+------+-------+--------+
+2 rows in set
+
+SQL> SELECT * FROM students WHERE email IS NOT NULL;
++----+--------+-----+------+--------------------+--------+
+| id | name   | age | cgpa | email              | branch |
++----+--------+-----+------+--------------------+--------+
+|  1 | Rahul  |  20 |  8.5 | rahul@college.edu  | CSE    |
+|  2 | Priya  |  21 |  9.1 | priya@college.edu  | CSE    |
+|  4 | Ananya |  22 |  8.9 | ananya@college.edu | ECE    |
+|  6 | Sneha  |  18 |  9.4 | sneha@college.edu  | ECE    |
++----+--------+-----+------+--------------------+--------+
+4 rows in set

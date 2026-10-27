@@ -1,0 +1,49 @@
+
+SQL> INSERT INTO students VALUES (7, 'Kavya', 19, 8.2, 'kavya@college.edu', 'IT');
+Query OK: 1 row inserted into 'students'.
+
+SQL> INSERT INTO students (id, name, age, cgpa) VALUES (8, 'Rohan', 21, 7.9);
+Query OK: 1 row inserted into 'students'.
+
+SQL> INSERT INTO students VALUES
+         (9, 'Isha', 20, 9.0, NULL, 'CSE'),
+         (10, 'Dev', 23, 6.5, NULL, 'ECE');
+Query OK: 2 rows inserted into 'students'.
+
+SQL> INSERT INTO courses (cid, student_id, course_name) VALUES (107, 7, 'Operating Systems');
+Query OK: 1 row inserted into 'courses'.
+
+SQL> SELECT * FROM students WHERE id >= 7;
++----+-------+-----+------+-------------------+--------+
+| id | name  | age | cgpa | email             | branch |
++----+-------+-----+------+-------------------+--------+
+|  7 | Kavya |  19 |  8.2 | kavya@college.edu | IT     |
+|  8 | Rohan |  21 |  7.9 | NULL              | CSE    |
+|  9 | Isha  |  20 |  9.0 | NULL              | CSE    |
+| 10 | Dev   |  23 |  6.5 | NULL              | ECE    |
++----+-------+-----+------+-------------------+--------+
+4 rows in set
+
+SQL> SELECT * FROM courses WHERE cid = 107;
++-----+------------+-------------------+---------+
+| cid | student_id | course_name       | credits |
++-----+------------+-------------------+---------+
+| 107 |          7 | Operating Systems |       4 |
++-----+------------+-------------------+---------+
+1 row in set
+
+SQL> CREATE TABLE honours (hid INT PRIMARY KEY, hname VARCHAR(50));
+Query OK: table 'honours' created (2 columns).
+
+SQL> INSERT INTO honours SELECT id, name FROM students WHERE cgpa >= 9;
+Query OK: 3 rows inserted into 'honours'.
+
+SQL> SELECT * FROM honours ORDER BY hid;
++-----+-------+
+| hid | hname |
++-----+-------+
+|   2 | Priya |
+|   6 | Sneha |
+|   9 | Isha  |
++-----+-------+
+3 rows in set

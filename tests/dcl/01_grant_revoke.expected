@@ -1,0 +1,110 @@
+
+SQL> CREATE USER user1;
+Query OK: user 'user1' created (no privileges yet).
+
+SQL> GRANT SELECT ON students TO user1;
+Query OK: granted SELECT on 'students' to 'user1'.
+
+SQL> GRANT SELECT, INSERT ON students TO user1;
+Query OK: granted SELECT, INSERT on 'students' to 'user1'.
+
+SQL> GRANT UPDATE ON students TO user1, user2;
+Query OK: granted UPDATE on 'students' to 'user1'.
+Query OK: granted UPDATE on 'students' to 'user2'.
+
+SQL> GRANT ALL ON courses TO user2;
+Query OK: granted ALL on 'courses' to 'user2'.
+
+SQL> SHOW USERS;
++-------+
+| users |
++-------+
+| admin |
+| user1 |
+| user2 |
++-------+
+3 rows in set
+
+SQL> SHOW GRANTS;
+admin  (administrator: ALL privileges on every object)
+user1
+ ├── SELECT -> students
+ ├── INSERT -> students
+ └── UPDATE -> students
+user2
+ ├── UPDATE -> students
+ ├── SELECT -> courses
+ ├── INSERT -> courses
+ ├── UPDATE -> courses
+ └── DELETE -> courses
+
+SQL> CONNECT user1;
+Query OK: connected as 'user1'.
+
+SQL> SELECT name FROM students WHERE id = 1;
++-------+
+| name  |
++-------+
+| Rahul |
++-------+
+1 row in set
+
+SQL> INSERT INTO students (id, name, age) VALUES (20, 'Guest', 20);
+Query OK: 1 row inserted into 'students'.
+
+SQL> DELETE FROM students WHERE id = 20;
+[SEMANTIC ERROR] line 12, column 1: permission denied: user 'user1' does not have DELETE privilege on 'students'
+      12 | DELETE FROM students WHERE id = 20;
+         | ^
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> SELECT * FROM courses;
+[SEMANTIC ERROR] line 13, column 15: permission denied: user 'user1' does not have SELECT privilege on 'courses'
+      13 | SELECT * FROM courses;
+         |               ^
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> CREATE TABLE hack (x INT);
+[SEMANTIC ERROR] line 14, column 1: permission denied: only an administrator can execute CREATE TABLE (current user: 'user1')
+      14 | CREATE TABLE hack (x INT);
+         | ^
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> CONNECT admin;
+Query OK: connected as 'admin'.
+
+SQL> REVOKE SELECT ON students FROM user1;
+Query OK: revoked SELECT on 'students' from 'user1'.
+
+SQL> SHOW GRANTS FOR user1;
+user1
+ ├── INSERT -> students
+ └── UPDATE -> students
+
+SQL> CONNECT user1;
+Query OK: connected as 'user1'.
+
+SQL> SELECT name FROM students;
+[SEMANTIC ERROR] line 19, column 18: permission denied: user 'user1' does not have SELECT privilege on 'students'
+      19 | SELECT name FROM students;
+         |                  ^
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> CONNECT admin;
+Query OK: connected as 'admin'.
+
+SQL> DROP USER user2;
+Query OK: user 'user2' dropped.
+
+SQL> SHOW USERS;
++-------+
+| users |
++-------+
+| admin |
+| user1 |
++-------+
+2 rows in set

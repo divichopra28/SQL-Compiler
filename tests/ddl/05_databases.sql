@@ -1,0 +1,12 @@
+-- Stage 2: DDL - CREATE / USE / DROP DATABASE
+CREATE DATABASE college;
+SHOW DATABASES;
+USE college;
+CREATE TABLE notes (nid INT PRIMARY KEY, body TEXT);
+INSERT INTO notes VALUES (1, 'stored in college.db');
+SELECT * FROM notes;
+SHOW TABLES;
+USE sqlcompiler;
+SHOW TABLES;
+DROP DATABASE college;
+SHOW DATABASES;

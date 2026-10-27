@@ -1,0 +1,58 @@
+
+SQL> INSERT INTO students VALUES (1, 'Duplicate id', 20, 7.0, NULL, 'IT');
+[EXECUTION ERROR] PRIMARY KEY violated on 'students': duplicate value (id = 1) (INSERT)
+Statement rolled back - no changes were made.
+
+SQL> INSERT INTO students VALUES (60, 'Copy', 20, 7.0, 'rahul@college.edu', 'IT');
+[EXECUTION ERROR] UNIQUE constraint violated on 'students': duplicate value (email = 'rahul@college.edu') (INSERT)
+Statement rolled back - no changes were made.
+
+SQL> INSERT INTO courses VALUES (200, 99, 'Ghost course', 3);
+[EXECUTION ERROR] FOREIGN KEY constraint failed: courses(student_id = 99) has no matching row in students(id) (INSERT)
+Statement rolled back - no changes were made.
+
+SQL> DELETE FROM students WHERE id = 1;
+[EXECUTION ERROR] FOREIGN KEY constraint failed: students row (id = 1) is still referenced by courses.student_id (DELETE)
+Statement rolled back - no changes were made.
+
+SQL> UPDATE students SET id = 100 WHERE id = 2;
+[EXECUTION ERROR] FOREIGN KEY constraint failed: students row (id = 2) is still referenced by courses.student_id (UPDATE)
+Statement rolled back - no changes were made.
+
+SQL> UPDATE students SET age = age - 10 WHERE id = 6;
+[EXECUTION ERROR] CHECK constraint failed: (age >= 17) is FALSE for age = 8 (UPDATE row 1)
+Statement rolled back - no changes were made.
+
+SQL> UPDATE students SET email = 'priya@college.edu' WHERE id = 1;
+[EXECUTION ERROR] UNIQUE constraint violated on 'students': duplicate value (email = 'priya@college.edu') (UPDATE)
+Statement rolled back - no changes were made.
+
+SQL> SELECT name FROM students WHERE cgpa > (SELECT cgpa FROM students);
+[EXECUTION ERROR] line 9, column 40: scalar subquery returned 6 rows (expected at most 1)
+       9 | SELECT name FROM students WHERE cgpa > (SELECT cgpa FROM students);
+         |                                        ^
+
+SQL> SELECT 1 / 0;
+[EXECUTION ERROR] line 10, column 10: division by zero
+      10 | SELECT 1 / 0;
+         |          ^
+
+SQL> TRUNCATE TABLE students;
+[EXECUTION ERROR] FOREIGN KEY constraint failed: students row (id = 1) is still referenced by courses.student_id (TRUNCATE)
+Statement rolled back - no changes were made.
+
+SQL> ALTER TABLE students MODIFY name INT;
+[EXECUTION ERROR] cannot convert existing data of column 'name' (row id = 1): cannot convert 'Rahul' to INT
+Statement rolled back - no changes were made.
+
+SQL> ALTER TABLE students ADD roll INT NOT NULL;
+[EXECUTION ERROR] cannot add NOT NULL column 'roll' without a DEFAULT: table 'students' already has 6 row(s)
+Statement rolled back - no changes were made.
+
+SQL> SELECT COUNT(*) FROM students;
++----------+
+| COUNT(*) |
++----------+
+|        6 |
++----------+
+1 row in set

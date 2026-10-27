@@ -1,0 +1,29 @@
+
+SQL> DELETE FROM courses WHERE credits < 3;
+Query OK: 1 row deleted from 'courses'.
+
+SQL> DELETE FROM students WHERE id = 5;
+Query OK: 1 row deleted from 'students'.
+
+SQL> SELECT id, name FROM students;
++----+--------+
+| id | name   |
++----+--------+
+|  1 | Rahul  |
+|  2 | Priya  |
+|  3 | Aarav  |
+|  4 | Ananya |
+|  6 | Sneha  |
++----+--------+
+5 rows in set
+
+SQL> DELETE FROM courses;
+Query OK: 5 rows deleted from 'courses'.
+
+SQL> SELECT COUNT(*) FROM courses;
++----------+
+| COUNT(*) |
++----------+
+|        0 |
++----------+
+1 row in set

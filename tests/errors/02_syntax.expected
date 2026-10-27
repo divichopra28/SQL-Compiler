@@ -1,0 +1,67 @@
+
+SQL> SELECT FROM students;
+[SYNTAX ERROR] line 2, column 8: unexpected keyword 'FROM'; expected one of 32 possible tokens (e.g. integer literal, float literal, string literal, date literal, identifier, ...)
+       2 | SELECT FROM students;
+         |        ^
+    hint: SELECT needs a column list or '*' before FROM
+
+Syntax Analysis Failed
+
+SQL> SELECT name students WHERE;
+[SYNTAX ERROR] line 3, column 27: unexpected punctuation ';'; expected one of 31 possible tokens (e.g. integer literal, float literal, string literal, date literal, identifier, ...)
+       3 | SELECT name students WHERE;
+         |                           ^
+    hint: the statement looks incomplete
+
+Syntax Analysis Failed
+
+SQL> INSERT INTO students VALUES (1, 'x';
+[SYNTAX ERROR] line 4, column 36: unexpected punctuation ';'; expected ')' or ','
+       4 | INSERT INTO students VALUES (1, 'x';
+         |                                    ^
+    hint: the statement looks incomplete
+
+Syntax Analysis Failed
+
+SQL> CREATE TABLE t (id INT,);
+[SYNTAX ERROR] line 5, column 24: unexpected punctuation ')'; expected one of 19 possible tokens (e.g. identifier, CHECK, CONSTRAINT, DATABASES, DATE, ...)
+       5 | CREATE TABLE t (id INT,);
+         |                        ^
+
+Syntax Analysis Failed
+
+SQL> UPDATE students age = 20;
+[SYNTAX ERROR] line 6, column 17: unexpected identifier 'age'; expected SET
+       6 | UPDATE students age = 20;
+         |                 ^
+
+Syntax Analysis Failed
+
+SQL> DELETE students WHERE id = 1;
+[SYNTAX ERROR] line 7, column 8: unexpected identifier 'students'; expected FROM
+       7 | DELETE students WHERE id = 1;
+         |        ^
+
+Syntax Analysis Failed
+
+SQL> SELECT * FROM students WHERE age BETWEEN 18;
+[SYNTAX ERROR] line 8, column 44: unexpected punctuation ';'; expected AND, '+', '-', '*', '/' or '%'
+       8 | SELECT * FROM students WHERE age BETWEEN 18;
+         |                                            ^
+    hint: the statement looks incomplete
+
+Syntax Analysis Failed
+
+SQL> GRANT SELECT students TO user1;
+[SYNTAX ERROR] line 9, column 14: unexpected identifier 'students'; expected ON or ','
+       9 | GRANT SELECT students TO user1;
+         |              ^
+
+Syntax Analysis Failed
+
+SQL> SELECT name FROM students ORDER cgpa;
+[SYNTAX ERROR] line 10, column 33: unexpected identifier 'cgpa'; expected BY
+      10 | SELECT name FROM students ORDER cgpa;
+         |                                 ^
+
+Syntax Analysis Failed

@@ -1,0 +1,6 @@
+sqlc
+*.o
+parser.tab.c
+parser.tab.h
+lex.yy.c
+database/*.db

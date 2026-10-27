@@ -1,0 +1,22 @@
+-- DCL: users, GRANT, REVOKE and privilege enforcement
+CREATE USER user1;
+GRANT SELECT ON students TO user1;
+GRANT SELECT, INSERT ON students TO user1;
+GRANT UPDATE ON students TO user1, user2;
+GRANT ALL ON courses TO user2;
+SHOW USERS;
+SHOW GRANTS;
+CONNECT user1;
+SELECT name FROM students WHERE id = 1;
+INSERT INTO students (id, name, age) VALUES (20, 'Guest', 20);
+DELETE FROM students WHERE id = 20;
+SELECT * FROM courses;
+CREATE TABLE hack (x INT);
+CONNECT admin;
+REVOKE SELECT ON students FROM user1;
+SHOW GRANTS FOR user1;
+CONNECT user1;
+SELECT name FROM students;
+CONNECT admin;
+DROP USER user2;
+SHOW USERS;

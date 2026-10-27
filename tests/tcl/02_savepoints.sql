@@ -1,0 +1,22 @@
+-- TCL: SAVEPOINT, ROLLBACK TO SAVEPOINT, RELEASE, statement atomicity
+START TRANSACTION;
+UPDATE students SET cgpa = 7.0 WHERE id = 1;
+SAVEPOINT sp1;
+UPDATE students SET cgpa = 9.0 WHERE id = 1;
+SAVEPOINT sp2;
+DELETE FROM courses WHERE cid = 106;
+SHOW TRANSACTION;
+ROLLBACK TO SAVEPOINT sp1;
+SHOW TRANSACTION;
+SELECT id, cgpa FROM students WHERE id = 1;
+SELECT COUNT(*) FROM courses;
+INSERT INTO students VALUES (1, 'Duplicate', 20, 5.0, NULL, 'IT');
+SELECT id, cgpa FROM students WHERE id = 1;
+RELEASE SAVEPOINT sp1;
+COMMIT;
+SELECT id, cgpa FROM students WHERE id = 1;
+SAVEPOINT auto_sp;
+UPDATE students SET cgpa = 1.0 WHERE id = 2;
+ROLLBACK TO auto_sp;
+ROLLBACK;
+SELECT id, cgpa FROM students WHERE id = 2;

@@ -1,0 +1,21 @@
+-- Stage 4: SELECT ... FROM ... WHERE
+SELECT * FROM students;
+SELECT name, age, cgpa FROM students;
+SELECT * FROM students WHERE cgpa > 8;
+SELECT name FROM students WHERE age = 20;
+SELECT name FROM students WHERE branch != 'CSE';
+SELECT name FROM students WHERE branch <> 'IT';
+SELECT name FROM students WHERE age >= 20 AND age <= 21;
+SELECT * FROM students WHERE age > 18 AND cgpa > 8;
+SELECT * FROM students WHERE branch = 'CSE' OR branch = 'IT';
+SELECT * FROM students WHERE NOT age < 20;
+SELECT * FROM students WHERE age > 18 AND cgpa > 8 OR branch = 'IT';
+SELECT * FROM students WHERE age BETWEEN 18 AND 20;
+SELECT * FROM students WHERE age NOT BETWEEN 18 AND 20;
+SELECT * FROM students WHERE branch IN ('CSE', 'IT', 'ECE');
+SELECT * FROM students WHERE branch NOT IN ('CSE');
+SELECT * FROM students WHERE name LIKE 'A%';
+SELECT * FROM students WHERE name LIKE '_r%';
+SELECT * FROM students WHERE name NOT LIKE '%a';
+SELECT * FROM students WHERE email IS NULL;
+SELECT * FROM students WHERE email IS NOT NULL;

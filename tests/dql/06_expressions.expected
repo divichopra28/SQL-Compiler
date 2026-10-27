@@ -1,0 +1,71 @@
+
+SQL> SELECT salary * 12 FROM employees;
++-------------+
+| salary * 12 |
++-------------+
+|    504006.0 |
+|    660000.0 |
+|    456000.0 |
++-------------+
+3 rows in set
+
+SQL> SELECT ename, salary * 12 AS annual FROM employees WHERE salary > 40000;
++-------+----------+
+| ename | annual   |
++-------+----------+
+| Kiran | 504006.0 |
+| Meera | 660000.0 |
++-------+----------+
+2 rows in set
+
+SQL> SELECT 10 + 5 * 2, (10 + 5) * 2, 17 % 5, 7 / 2, 7.0 / 2, -3 + 1;
++------------+--------------+--------+-------+---------+--------+
+| 10 + 5 * 2 | (10 + 5) * 2 | 17 % 5 | 7 / 2 | 7.0 / 2 | -3 + 1 |
++------------+--------------+--------+-------+---------+--------+
+|         20 |           30 |      2 |     3 |     3.5 |     -2 |
++------------+--------------+--------+-------+---------+--------+
+1 row in set
+
+SQL> SELECT UPPER(name), LOWER(branch), LENGTH(name) FROM students WHERE id = 1;
++-------------+---------------+--------------+
+| UPPER(name) | LOWER(branch) | LENGTH(name) |
++-------------+---------------+--------------+
+| RAHUL       | cse           |            5 |
++-------------+---------------+--------------+
+1 row in set
+
+SQL> SELECT name, COALESCE(email, 'not given') AS email FROM students WHERE id IN (3, 4);
++--------+--------------------+
+| name   | email              |
++--------+--------------------+
+| Aarav  | not given          |
+| Ananya | ananya@college.edu |
++--------+--------------------+
+2 rows in set
+
+SQL> SELECT ename, joined FROM employees WHERE joined > '2020-01-01';
++-------+------------+
+| ename | joined     |
++-------+------------+
+| Kiran | 2021-07-01 |
+| Arjun | 2023-01-10 |
++-------+------------+
+2 rows in set
+
+SQL> SELECT ename FROM employees WHERE joined BETWEEN DATE '2019-01-01' AND DATE '2021-12-31';
++-------+
+| ename |
++-------+
+| Kiran |
+| Meera |
++-------+
+2 rows in set
+
+SQL> SELECT name FROM students WHERE age > 10 + 5 AND cgpa > 9;
++-------+
+| name  |
++-------+
+| Priya |
+| Sneha |
++-------+
+2 rows in set

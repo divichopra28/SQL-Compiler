@@ -1,0 +1,144 @@
+
+SQL> SELECT DISTINCT branch FROM students;
++--------+
+| branch |
++--------+
+| CSE    |
+| IT     |
+| ECE    |
++--------+
+3 rows in set
+
+SQL> SELECT * FROM students ORDER BY cgpa;
++----+--------+-----+------+--------------------+--------+
+| id | name   | age | cgpa | email              | branch |
++----+--------+-----+------+--------------------+--------+
+|  5 | Vikram |  20 |  6.8 | NULL               | IT     |
+|  3 | Aarav  |  19 |  7.4 | NULL               | IT     |
+|  1 | Rahul  |  20 |  8.5 | rahul@college.edu  | CSE    |
+|  4 | Ananya |  22 |  8.9 | ananya@college.edu | ECE    |
+|  2 | Priya  |  21 |  9.1 | priya@college.edu  | CSE    |
+|  6 | Sneha  |  18 |  9.4 | sneha@college.edu  | ECE    |
++----+--------+-----+------+--------------------+--------+
+6 rows in set
+
+SQL> SELECT * FROM students ORDER BY cgpa DESC;
++----+--------+-----+------+--------------------+--------+
+| id | name   | age | cgpa | email              | branch |
++----+--------+-----+------+--------------------+--------+
+|  6 | Sneha  |  18 |  9.4 | sneha@college.edu  | ECE    |
+|  2 | Priya  |  21 |  9.1 | priya@college.edu  | CSE    |
+|  4 | Ananya |  22 |  8.9 | ananya@college.edu | ECE    |
+|  1 | Rahul  |  20 |  8.5 | rahul@college.edu  | CSE    |
+|  3 | Aarav  |  19 |  7.4 | NULL               | IT     |
+|  5 | Vikram |  20 |  6.8 | NULL               | IT     |
++----+--------+-----+------+--------------------+--------+
+6 rows in set
+
+SQL> SELECT name, branch, cgpa FROM students ORDER BY branch ASC, cgpa DESC;
++--------+--------+------+
+| name   | branch | cgpa |
++--------+--------+------+
+| Priya  | CSE    |  9.1 |
+| Rahul  | CSE    |  8.5 |
+| Sneha  | ECE    |  9.4 |
+| Ananya | ECE    |  8.9 |
+| Aarav  | IT     |  7.4 |
+| Vikram | IT     |  6.8 |
++--------+--------+------+
+6 rows in set
+
+SQL> SELECT branch, COUNT(*) FROM students GROUP BY branch;
++--------+----------+
+| branch | COUNT(*) |
++--------+----------+
+| CSE    |        2 |
+| ECE    |        2 |
+| IT     |        2 |
++--------+----------+
+3 rows in set
+
+SQL> SELECT branch, AVG(cgpa) FROM students GROUP BY branch HAVING AVG(cgpa) > 8;
++--------+-----------+
+| branch | AVG(cgpa) |
++--------+-----------+
+| CSE    |       8.8 |
+| ECE    |      9.15 |
++--------+-----------+
+2 rows in set
+
+SQL> SELECT COUNT(*) FROM students;
++----------+
+| COUNT(*) |
++----------+
+|        6 |
++----------+
+1 row in set
+
+SQL> SELECT AVG(cgpa) FROM students;
++-----------+
+| AVG(cgpa) |
++-----------+
+|      8.35 |
++-----------+
+1 row in set
+
+SQL> SELECT branch, MAX(cgpa) FROM students GROUP BY branch;
++--------+-----------+
+| branch | MAX(cgpa) |
++--------+-----------+
+| CSE    |       9.1 |
+| ECE    |       9.4 |
+| IT     |       7.4 |
++--------+-----------+
+3 rows in set
+
+SQL> SELECT MIN(age), MAX(age), SUM(age), COUNT(email), COUNT(DISTINCT branch) FROM students;
++----------+----------+----------+--------------+------------------------+
+| MIN(age) | MAX(age) | SUM(age) | COUNT(email) | COUNT(DISTINCT branch) |
++----------+----------+----------+--------------+------------------------+
+|       18 |       22 |      120 |            4 |                      3 |
++----------+----------+----------+--------------+------------------------+
+1 row in set
+
+SQL> SELECT branch, COUNT(*) AS n, ROUND(AVG(cgpa), 2) AS avg_cgpa FROM students GROUP BY branch ORDER BY n DESC, branch;
++--------+---+----------+
+| branch | n | avg_cgpa |
++--------+---+----------+
+| CSE    | 2 |      8.8 |
+| ECE    | 2 |     9.15 |
+| IT     | 2 |      7.1 |
++--------+---+----------+
+3 rows in set
+
+SQL> SELECT name, cgpa FROM students ORDER BY cgpa DESC LIMIT 3;
++--------+------+
+| name   | cgpa |
++--------+------+
+| Sneha  |  9.4 |
+| Priya  |  9.1 |
+| Ananya |  8.9 |
++--------+------+
+3 rows in set
+
+SQL> SELECT name FROM students ORDER BY name LIMIT 2 OFFSET 2;
++-------+
+| name  |
++-------+
+| Priya |
+| Rahul |
++-------+
+2 rows in set
+
+SQL> SELECT name AS student, cgpa * 10 AS percentage FROM students ORDER BY percentage DESC;
++---------+------------+
+| student | percentage |
++---------+------------+
+| Sneha   |       94.0 |
+| Priya   |       91.0 |
+| Ananya  |       89.0 |
+| Rahul   |       85.0 |
+| Aarav   |       74.0 |
+| Vikram  |       68.0 |
++---------+------------+
+6 rows in set

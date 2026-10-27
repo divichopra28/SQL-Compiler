@@ -1,0 +1,25 @@
+
+SQL> UPDATE students SET age = 21 WHERE id = 1;
+Query OK: 1 row updated in 'students'.
+
+SQL> UPDATE students SET age = 22, cgpa = 8.9 WHERE id = 3;
+Query OK: 1 row updated in 'students'.
+
+SQL> UPDATE students SET cgpa = cgpa + 0.1 WHERE branch = 'ECE';
+Query OK: 2 rows updated in 'students'.
+
+SQL> UPDATE students SET branch = 'AI' WHERE cgpa > (SELECT AVG(cgpa) FROM students) AND branch = 'CSE';
+Query OK: 1 row updated in 'students'.
+
+SQL> SELECT id, name, age, cgpa, branch FROM students ORDER BY id;
++----+--------+-----+------+--------+
+| id | name   | age | cgpa | branch |
++----+--------+-----+------+--------+
+|  1 | Rahul  |  21 |  8.5 | CSE    |
+|  2 | Priya  |  21 |  9.1 | AI     |
+|  3 | Aarav  |  22 |  8.9 | IT     |
+|  4 | Ananya |  22 |  9.0 | ECE    |
+|  5 | Vikram |  20 |  6.8 | IT     |
+|  6 | Sneha  |  18 |  9.5 | ECE    |
++----+--------+-----+------+--------+
+6 rows in set

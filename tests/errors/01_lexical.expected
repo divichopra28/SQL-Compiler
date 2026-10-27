@@ -1,0 +1,45 @@
+
+SQL> SELECT @name FROM students;
+[LEXICAL ERROR] line 2, column 8: invalid character '@'
+       2 | SELECT @name FROM students;
+         |        ^
+
+Lexical Analysis Failed - 1 lexical error
+
+SQL> SELECT name FROM students WHERE id = 12abc;
+[LEXICAL ERROR] line 3, column 38: malformed number '12abc' (identifiers cannot start with a digit)
+       3 | SELECT name FROM students WHERE id = 12abc;
+         |                                      ^
+
+Lexical Analysis Failed - 1 lexical error
+
+SQL> SELECT # FROM students;
+[LEXICAL ERROR] line 4, column 8: invalid character '#'
+       4 | SELECT # FROM students;
+         |        ^
+
+Lexical Analysis Failed - 1 lexical error
+
+SQL> SELECT DATE '2026-02-30';
+[LEXICAL ERROR] line 5, column 8: invalid date literal DATE '2026-02-30'
+       5 | SELECT DATE '2026-02-30';
+         |        ^
+
+Lexical Analysis Failed - 1 lexical error
+
+SQL> SELECT name, $salary FROM students WHERE age ! 20;
+[LEXICAL ERROR] line 6, column 14: invalid character '$'
+       6 | SELECT name, $salary FROM students WHERE age ! 20;
+         |              ^
+[LEXICAL ERROR] line 6, column 46: invalid character '!'
+       6 | SELECT name, $salary FROM students WHERE age ! 20;
+         |                                              ^
+
+Lexical Analysis Failed - 2 lexical errors
+
+SQL> SELECT name FROM students WHERE branch = 'CSE;
+[LEXICAL ERROR] line 7, column 42: unterminated string literal 'CSE;
+       7 | SELECT name FROM students WHERE branch = 'CSE;
+         |                                          ^
+
+Lexical Analysis Failed - 1 lexical error

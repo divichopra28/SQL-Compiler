@@ -1,0 +1,225 @@
+
+SQL> SELECT salary FROM students;
+[SEMANTIC ERROR] line 2, column 8: column 'salary' does not exist in table 'students'
+       2 | SELECT salary FROM students;
+         |        ^
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> SELECT * FROM studnets;
+[SEMANTIC ERROR] line 3, column 15: table 'studnets' does not exist (did you mean 'students'?)
+       3 | SELECT * FROM studnets;
+         |               ^
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> SELECT nme FROM students;
+[SEMANTIC ERROR] line 4, column 8: column 'nme' does not exist in table 'students' (did you mean 'name'?)
+       4 | SELECT nme FROM students;
+         |        ^
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> SELECT id FROM students s JOIN courses c ON s.id = c.student_id JOIN faculty f ON f.fid = s.id WHERE name = 'x';
+[SEMANTIC ERROR] line 5, column 102: column reference 'name' is ambiguous (it exists in s, f); qualify it, e.g. s.name
+       5 | SELECT id FROM students s JOIN courses c ON s.id = c.student_id JOIN faculty f ON f.fid = s.id WHERE name = 'x';
+         |                                                                                                      ^
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> SELECT AVG(name) FROM students;
+[SEMANTIC ERROR] line 6, column 8: AVG() requires a numeric argument, but 'name' is VARCHAR(50)
+       6 | SELECT AVG(name) FROM students;
+         |        ^
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> SELECT name, COUNT(*) FROM students;
+[SEMANTIC ERROR] line 7, column 8: column 'name' in the SELECT list must appear in the GROUP BY clause or be used in an aggregate function
+       7 | SELECT name, COUNT(*) FROM students;
+         |        ^
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> SELECT * FROM students WHERE AVG(cgpa) > 8;
+[SEMANTIC ERROR] line 8, column 30: aggregate function AVG() is not allowed in WHERE clause
+       8 | SELECT * FROM students WHERE AVG(cgpa) > 8;
+         |                              ^
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> SELECT * FROM students WHERE name > 5;
+[SEMANTIC ERROR] line 9, column 35: type mismatch: cannot compare VARCHAR(50) with INT in 'name > 5'
+       9 | SELECT * FROM students WHERE name > 5;
+         |                                   ^
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> SELECT * FROM students WHERE cgpa;
+[SEMANTIC ERROR] line 10, column 30: WHERE clause must be a BOOLEAN condition, but 'cgpa' is FLOAT
+      10 | SELECT * FROM students WHERE cgpa;
+         |                              ^
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> SELECT name FROM students WHERE id IN (SELECT student_id, cid FROM courses);
+[SEMANTIC ERROR] line 11, column 36: subquery must return exactly one column (it returns 2)
+      11 | SELECT name FROM students WHERE id IN (SELECT student_id, cid FROM courses);
+         |                                    ^
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> SELECT name FROM students UNION SELECT fid, name FROM faculty;
+[SEMANTIC ERROR] line 12, column 27: each UNION query must have the same number of columns (1 vs 2)
+      12 | SELECT name FROM students UNION SELECT fid, name FROM faculty;
+         |                           ^
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> SELECT DISTINCT branch FROM students ORDER BY cgpa;
+[SEMANTIC ERROR] line 13, column 47: for SELECT DISTINCT, ORDER BY expressions must appear in the select list
+      13 | SELECT DISTINCT branch FROM students ORDER BY cgpa;
+         |                                               ^
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> INSERT INTO students VALUES (50, 'Kid', 15, 7.0, NULL, 'IT');
+[SEMANTIC ERROR] line 14, column 29: row 1 violates CHECK constraint (age >= 17)
+      14 | INSERT INTO students VALUES (50, 'Kid', 15, 7.0, NULL, 'IT');
+         |                             ^
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> INSERT INTO students VALUES (51, NULL, 18, 7.0, NULL, 'IT');
+[SEMANTIC ERROR] line 15, column 34: column 'name' is NOT NULL, cannot store NULL
+      15 | INSERT INTO students VALUES (51, NULL, 18, 7.0, NULL, 'IT');
+         |                                  ^
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> INSERT INTO students VALUES ('fifty', 'X', 18, 7.0, NULL, 'IT');
+[SEMANTIC ERROR] line 16, column 30: type mismatch: column 'id' is INT but the value 'fifty' is VARCHAR
+      16 | INSERT INTO students VALUES ('fifty', 'X', 18, 7.0, NULL, 'IT');
+         |                              ^
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> INSERT INTO students (id, name) VALUES (52, 'A name that is far far too long for the fifty character column');
+[SEMANTIC ERROR] line 17, column 45: value 'A name that is far far too long for the fifty character column' is too long for column 'name' VARCHAR(50) (length 62)
+      17 | INSERT INTO students (id, name) VALUES (52, 'A name that is far far too long for the fifty character column');
+         |                                             ^
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> INSERT INTO students (id, age) VALUES (53, 20);
+[SEMANTIC ERROR] line 18, column 1: column 'name' is NOT NULL and has no DEFAULT, so it must be given a value
+      18 | INSERT INTO students (id, age) VALUES (53, 20);
+         | ^
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> INSERT INTO students VALUES (54, 'Two');
+[SEMANTIC ERROR] line 19, column 29: row 1 has 2 value(s) but 6 column(s) are expected
+      19 | INSERT INTO students VALUES (54, 'Two');
+         |                             ^
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> INSERT INTO students VALUES (55, 'A', 20, 8, NULL, 'IT'), (55, 'B', 20, 8, NULL, 'IT');
+[SEMANTIC ERROR] line 20, column 59: rows 1 and 2 have the same PRIMARY KEY value (id = 55)
+      20 | INSERT INTO students VALUES (55, 'A', 20, 8, NULL, 'IT'), (55, 'B', 20, 8, NULL, 'IT');
+         |                                                           ^
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> INSERT INTO employees VALUES (9, 'Z', 100, '2023-13-45');
+[SEMANTIC ERROR] line 21, column 44: '2023-13-45' is not a valid DATE value for column 'joined' (expected YYYY-MM-DD)
+      21 | INSERT INTO employees VALUES (9, 'Z', 100, '2023-13-45');
+         |                                            ^
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> UPDATE students SET salary = 10;
+[SEMANTIC ERROR] line 22, column 21: column 'salary' does not exist in table 'students'
+      22 | UPDATE students SET salary = 10;
+         |                     ^
+[WARNING] line 22, column 1: UPDATE without WHERE will modify every row of 'students'
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> CREATE TABLE students (x INT);
+[SEMANTIC ERROR] line 23, column 1: table 'students' already exists
+      23 | CREATE TABLE students (x INT);
+         | ^
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> CREATE TABLE t1 (a INT, a INT);
+[SEMANTIC ERROR] line 24, column 25: column 'a' is specified more than once
+      24 | CREATE TABLE t1 (a INT, a INT);
+         |                         ^
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> CREATE TABLE t2 (a INT PRIMARY KEY, b INT PRIMARY KEY);
+[SEMANTIC ERROR] line 25, column 43: multiple primary keys for table 't2' are not allowed
+      25 | CREATE TABLE t2 (a INT PRIMARY KEY, b INT PRIMARY KEY);
+         |                                           ^
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> CREATE TABLE t3 (a INT REFERENCES missing(id));
+[SEMANTIC ERROR] line 26, column 24: referenced table 'missing' does not exist
+      26 | CREATE TABLE t3 (a INT REFERENCES missing(id));
+         |                        ^
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> CREATE TABLE t4 (a INT CHECK (a > (SELECT 1)));
+[SEMANTIC ERROR] line 27, column 35: subqueries are not allowed in CHECK constraints
+      27 | CREATE TABLE t4 (a INT CHECK (a > (SELECT 1)));
+         |                                   ^
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> DROP TABLE students;
+[SEMANTIC ERROR] line 28, column 1: cannot drop table 'students': table 'courses' has a FOREIGN KEY referencing it
+      28 | DROP TABLE students;
+         | ^
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> DROP TABLE nothing;
+[SEMANTIC ERROR] line 29, column 1: table 'nothing' does not exist
+      29 | DROP TABLE nothing;
+         | ^
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> ALTER TABLE students DROP COLUMN id;
+[SEMANTIC ERROR] line 30, column 22: cannot drop column 'id': it is part of the PRIMARY KEY
+      30 | ALTER TABLE students DROP COLUMN id;
+         |                      ^
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> ALTER TABLE students ADD name INT;
+[SEMANTIC ERROR] line 31, column 26: column 'name' already exists in table 'students'
+      31 | ALTER TABLE students ADD name INT;
+         |                          ^
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> GRANT SELECT ON nothing TO user1;
+[SEMANTIC ERROR] line 32, column 1: table or view 'nothing' does not exist
+      32 | GRANT SELECT ON nothing TO user1;
+         | ^
+
+Semantic Analysis Failed - 1 semantic error
+
+SQL> ROLLBACK TO SAVEPOINT nowhere;
+[SEMANTIC ERROR] line 33, column 1: there is no active transaction, so savepoint 'nowhere' does not exist
+      33 | ROLLBACK TO SAVEPOINT nowhere;
+         | ^
+
+Semantic Analysis Failed - 1 semantic error

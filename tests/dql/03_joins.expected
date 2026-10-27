@@ -1,0 +1,106 @@
+
+SQL> SELECT students.name, courses.course_name FROM students INNER JOIN courses ON students.id = courses.student_id;
++--------+-----------------+
+| name   | course_name     |
++--------+-----------------+
+| Rahul  | Compiler Design |
+| Rahul  | DBMS            |
+| Priya  | Compiler Design |
+| Ananya | VLSI            |
+| Sneha  | Signals         |
++--------+-----------------+
+5 rows in set
+
+SQL> SELECT students.name, courses.course_name FROM students LEFT JOIN courses ON students.id = courses.student_id;
++--------+-----------------+
+| name   | course_name     |
++--------+-----------------+
+| Rahul  | Compiler Design |
+| Rahul  | DBMS            |
+| Priya  | Compiler Design |
+| Aarav  | NULL            |
+| Ananya | VLSI            |
+| Vikram | NULL            |
+| Sneha  | Signals         |
++--------+-----------------+
+7 rows in set
+
+SQL> SELECT students.name, courses.course_name FROM students RIGHT JOIN courses ON students.id = courses.student_id;
++--------+-----------------+
+| name   | course_name     |
++--------+-----------------+
+| Rahul  | Compiler Design |
+| Rahul  | DBMS            |
+| Priya  | Compiler Design |
+| Ananya | VLSI            |
+| Sneha  | Signals         |
+| NULL   | Ethics          |
++--------+-----------------+
+6 rows in set
+
+SQL> SELECT * FROM students FULL OUTER JOIN courses ON students.id = courses.student_id;
++------+--------+------+------+--------------------+--------+------+------------+-----------------+---------+
+| id   | name   | age  | cgpa | email              | branch | cid  | student_id | course_name     | credits |
++------+--------+------+------+--------------------+--------+------+------------+-----------------+---------+
+|    1 | Rahul  |   20 |  8.5 | rahul@college.edu  | CSE    |  101 |          1 | Compiler Design |       4 |
+|    1 | Rahul  |   20 |  8.5 | rahul@college.edu  | CSE    |  102 |          1 | DBMS            |       3 |
+|    2 | Priya  |   21 |  9.1 | priya@college.edu  | CSE    |  103 |          2 | Compiler Design |       4 |
+|    3 | Aarav  |   19 |  7.4 | NULL               | IT     | NULL |       NULL | NULL            |    NULL |
+|    4 | Ananya |   22 |  8.9 | ananya@college.edu | ECE    |  104 |          4 | VLSI            |       3 |
+|    5 | Vikram |   20 |  6.8 | NULL               | IT     | NULL |       NULL | NULL            |    NULL |
+|    6 | Sneha  |   18 |  9.4 | sneha@college.edu  | ECE    |  105 |          6 | Signals         |       4 |
+| NULL | NULL   | NULL | NULL | NULL               | NULL   |  106 |       NULL | Ethics          |       2 |
++------+--------+------+------+--------------------+--------+------+------------+-----------------+---------+
+8 rows in set
+
+SQL> SELECT s.name, f.name FROM students s CROSS JOIN faculty f WHERE s.id = 1;
++-------+-----------+
+| name  | name      |
++-------+-----------+
+| Rahul | Dr. Mehta |
+| Rahul | Priya     |
+| Rahul | Dr. Rao   |
++-------+-----------+
+3 rows in set
+
+SQL> SELECT a.name AS student, b.name AS classmate FROM students a JOIN students b ON a.branch = b.branch AND a.id < b.id;
++---------+-----------+
+| student | classmate |
++---------+-----------+
+| Rahul   | Priya     |
+| Aarav   | Vikram    |
+| Ananya  | Sneha     |
++---------+-----------+
+3 rows in set
+
+SQL> SELECT s.name, c.course_name FROM students s JOIN courses c ON s.id = c.student_id WHERE s.cgpa > 8.6 AND c.credits = 4;
++-------+-----------------+
+| name  | course_name     |
++-------+-----------------+
+| Priya | Compiler Design |
+| Sneha | Signals         |
++-------+-----------------+
+2 rows in set
+
+SQL> SELECT s.name, COUNT(c.cid) AS courses FROM students s LEFT JOIN courses c ON s.id = c.student_id GROUP BY s.name ORDER BY courses DESC, s.name;
++--------+---------+
+| name   | courses |
++--------+---------+
+| Rahul  |       2 |
+| Ananya |       1 |
+| Priya  |       1 |
+| Sneha  |       1 |
+| Aarav  |       0 |
+| Vikram |       0 |
++--------+---------+
+6 rows in set
+
+SQL> SELECT s.name, c.course_name FROM students s, courses c WHERE s.id = c.student_id AND s.branch = 'CSE';
++-------+-----------------+
+| name  | course_name     |
++-------+-----------------+
+| Rahul | Compiler Design |
+| Rahul | DBMS            |
+| Priya | Compiler Design |
++-------+-----------------+
+3 rows in set

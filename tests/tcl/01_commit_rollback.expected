@@ -1,0 +1,80 @@
+
+SQL> START TRANSACTION;
+Query OK: transaction 1 started (state: ACTIVE).
+
+SQL> INSERT INTO students VALUES (11, 'Aarav K', 20, 8.2, NULL, 'IT');
+Query OK: 1 row inserted into 'students'.
+
+SQL> UPDATE students SET cgpa = 8.5 WHERE id = 11;
+Query OK: 1 row updated in 'students'.
+
+SQL> SHOW TRANSACTION;
+Transaction ID    : 1
+Transaction State : ACTIVE
+Savepoints        : (none)
+Pending Operations: 2
+    1. INSERT INTO students  (1 row)
+    2. UPDATE students  (1 row)
+
+SQL> COMMIT;
+Query OK: transaction 1 COMMITTED - 2 operations made permanent.
+
+SQL> SELECT id, name, cgpa FROM students WHERE id = 11;
++----+---------+------+
+| id | name    | cgpa |
++----+---------+------+
+| 11 | Aarav K |  8.5 |
++----+---------+------+
+1 row in set
+
+SQL> START TRANSACTION;
+Query OK: transaction 2 started (state: ACTIVE).
+
+SQL> DELETE FROM students WHERE id = 11;
+Query OK: 1 row deleted from 'students'.
+
+SQL> SELECT COUNT(*) FROM students WHERE id = 11;
++----------+
+| COUNT(*) |
++----------+
+|        0 |
++----------+
+1 row in set
+
+SQL> ROLLBACK;
+Query OK: transaction 2 ROLLED BACK - 1 operation undone.
+
+SQL> SELECT COUNT(*) FROM students WHERE id = 11;
++----------+
+| COUNT(*) |
++----------+
+|        1 |
++----------+
+1 row in set
+
+SQL> START TRANSACTION;
+Query OK: transaction 3 started (state: ACTIVE).
+
+SQL> CREATE TABLE scratch (x INT);
+Query OK: table 'scratch' created (1 column).
+
+SQL> INSERT INTO scratch VALUES (1);
+Query OK: 1 row inserted into 'scratch'.
+
+SQL> ROLLBACK;
+Query OK: transaction 3 ROLLED BACK - 2 operations undone.
+
+SQL> SHOW TABLES;
++-----------+
+| tables    |
++-----------+
+| courses   |
+| employees |
+| faculty   |
+| students  |
++-----------+
+4 rows in set
+
+SQL> COMMIT;
+[WARNING] line 18, column 1: there is no active transaction (autocommit mode) - nothing to commit
+Query OK: nothing to commit (autocommit mode).

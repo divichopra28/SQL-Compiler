@@ -1,0 +1,73 @@
+
+SQL> CREATE TABLE departments (
+         dept_id   INT PRIMARY KEY,
+         dname     VARCHAR(30) NOT NULL UNIQUE,
+         budget    DECIMAL(12,2) DEFAULT 100000,
+         founded   DATE,
+         active    BOOLEAN DEFAULT TRUE,
+         CHECK (budget >= 0)
+     );
+Query OK: table 'departments' created (5 columns).
+
+SQL> CREATE TABLE staff (
+         sid      INT,
+         dept_id  INT REFERENCES departments(dept_id),
+         sname    VARCHAR(40) NOT NULL,
+         code     CHAR(4),
+         rating   DOUBLE,
+         big      BIGINT,
+         small    SMALLINT,
+         notes    TEXT,
+         login_at DATETIME,
+         shift    TIME,
+         PRIMARY KEY (sid),
+         UNIQUE (sname, code)
+     );
+Query OK: table 'staff' created (10 columns).
+
+SQL> CREATE TABLE IF NOT EXISTS staff (x INT);
+Query OK: table 'staff' already exists, nothing done.
+
+SQL> DESCRIBE departments;
++---------+---------------+------+-----+---------+-------+
+| column  | type          | null | key | default | extra |
++---------+---------------+------+-----+---------+-------+
+| dept_id | INT           | NO   | PRI | NULL    |       |
+| dname   | VARCHAR(30)   | NO   | UNI | NULL    |       |
+| budget  | DECIMAL(12,2) | YES  |     | 100000  |       |
+| founded | DATE          | YES  |     | NULL    |       |
+| active  | BOOLEAN       | YES  |     | TRUE    |       |
++---------+---------------+------+-----+---------+-------+
+5 rows in set
+CHECK (budget >= 0)
+
+SQL> DESCRIBE staff;
++----------+-------------+------+-----+---------+-------------------------+
+| column   | type        | null | key | default | extra                   |
++----------+-------------+------+-----+---------+-------------------------+
+| sid      | INT         | NO   | PRI | NULL    |                         |
+| dept_id  | INT         | YES  | FK  | NULL    | -> departments(dept_id) |
+| sname    | VARCHAR(40) | NO   |     | NULL    |                         |
+| code     | CHAR(4)     | YES  |     | NULL    |                         |
+| rating   | DOUBLE      | YES  |     | NULL    |                         |
+| big      | BIGINT      | YES  |     | NULL    |                         |
+| small    | SMALLINT    | YES  |     | NULL    |                         |
+| notes    | TEXT        | YES  |     | NULL    |                         |
+| login_at | DATETIME    | YES  |     | NULL    |                         |
+| shift    | TIME        | YES  |     | NULL    |                         |
++----------+-------------+------+-----+---------+-------------------------+
+10 rows in set
+UNIQUE (sname, code)
+
+SQL> SHOW TABLES;
++-------------+
+| tables      |
++-------------+
+| courses     |
+| departments |
+| employees   |
+| faculty     |
+| staff       |
+| students    |
++-------------+
+6 rows in set

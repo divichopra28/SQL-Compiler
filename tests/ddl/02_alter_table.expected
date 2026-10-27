@@ -1,0 +1,55 @@
+
+SQL> ALTER TABLE students ADD phone VARCHAR(15);
+Query OK: column 'phone' VARCHAR(15) added to 'students'.
+
+SQL> ALTER TABLE students ADD COLUMN hostel BOOLEAN DEFAULT FALSE;
+Query OK: column 'hostel' BOOLEAN added to 'students'.
+
+SQL> SELECT id, name, phone, hostel FROM students WHERE id <= 2;
++----+-------+-------+--------+
+| id | name  | phone | hostel |
++----+-------+-------+--------+
+|  1 | Rahul | NULL  | FALSE  |
+|  2 | Priya | NULL  | FALSE  |
++----+-------+-------+--------+
+2 rows in set
+
+SQL> ALTER TABLE students DROP COLUMN phone;
+Query OK: column 'phone' dropped from 'students'.
+
+SQL> ALTER TABLE students MODIFY age SMALLINT;
+Query OK: column 'age' is now SMALLINT (6 existing values converted).
+
+SQL> ALTER TABLE students MODIFY cgpa DECIMAL(4,1);
+Query OK: column 'cgpa' is now DECIMAL(4,1) (6 existing values converted).
+
+SQL> ALTER TABLE students RENAME COLUMN name TO student_name;
+Query OK: column 'name' renamed to 'student_name' in 'students'.
+
+SQL> ALTER TABLE faculty RENAME TO teachers;
+Query OK: table 'faculty' renamed to 'teachers'.
+
+SQL> SELECT * FROM teachers;
++-----+-----------+------+
+| fid | name      | dept |
++-----+-----------+------+
+|   1 | Dr. Mehta | CSE  |
+|   2 | Priya     | IT   |
+|   3 | Dr. Rao   | ECE  |
++-----+-----------+------+
+3 rows in set
+
+SQL> DESCRIBE students;
++--------------+--------------+------+-----+---------+-------+
+| column       | type         | null | key | default | extra |
++--------------+--------------+------+-----+---------+-------+
+| id           | INT          | NO   | PRI | NULL    |       |
+| student_name | VARCHAR(50)  | NO   |     | NULL    |       |
+| age          | SMALLINT     | YES  |     | NULL    |       |
+| cgpa         | DECIMAL(4,1) | YES  |     | NULL    |       |
+| email        | VARCHAR(100) | YES  | UNI | NULL    |       |
+| branch       | VARCHAR(20)  | YES  |     | 'CSE'   |       |
+| hostel       | BOOLEAN      | YES  |     | FALSE   |       |
++--------------+--------------+------+-----+---------+-------+
+7 rows in set
+CHECK (age >= 17)

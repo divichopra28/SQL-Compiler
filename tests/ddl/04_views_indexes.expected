@@ -1,0 +1,76 @@
+
+SQL> CREATE VIEW toppers AS SELECT name, cgpa, branch FROM students WHERE cgpa >= 8.5;
+Query OK: view 'toppers' created.
+
+SQL> CREATE VIEW cse_toppers AS SELECT name, cgpa FROM toppers WHERE branch = 'CSE';
+Query OK: view 'cse_toppers' created.
+
+SQL> SELECT * FROM toppers ORDER BY cgpa DESC;
++--------+------+--------+
+| name   | cgpa | branch |
++--------+------+--------+
+| Sneha  |  9.4 | ECE    |
+| Priya  |  9.1 | CSE    |
+| Ananya |  8.9 | ECE    |
+| Rahul  |  8.5 | CSE    |
++--------+------+--------+
+4 rows in set
+
+SQL> SELECT * FROM cse_toppers;
++-------+------+
+| name  | cgpa |
++-------+------+
+| Rahul |  8.5 |
+| Priya |  9.1 |
++-------+------+
+2 rows in set
+
+SQL> DESCRIBE toppers;
+VIEW toppers AS SELECT name, cgpa, branch FROM students WHERE cgpa >= 8.5
++--------+---------+
+| column | type    |
++--------+---------+
+| name   | VARCHAR |
+| cgpa   | FLOAT   |
+| branch | VARCHAR |
++--------+---------+
+3 rows in set
+
+SQL> CREATE INDEX idx_branch ON students (branch);
+Query OK: index 'idx_branch' created on students.
+
+SQL> CREATE UNIQUE INDEX idx_name ON students (name);
+Query OK: unique index 'idx_name' created on students.
+
+SQL> SHOW INDEXES;
++------------+----------+---------+--------+
+| index      | table    | columns | unique |
++------------+----------+---------+--------+
+| idx_branch | students | branch  | NO     |
+| idx_name   | students | name    | YES    |
++------------+----------+---------+--------+
+2 rows in set
+
+SQL> SHOW VIEWS;
++-------------+
+| views       |
++-------------+
+| cse_toppers |
+| toppers     |
++-------------+
+2 rows in set
+
+SQL> DROP INDEX idx_branch;
+Query OK: index 'idx_branch' dropped.
+
+SQL> DROP VIEW cse_toppers;
+Query OK: view 'cse_toppers' dropped.
+
+SQL> DROP VIEW toppers;
+Query OK: view 'toppers' dropped.
+
+SQL> SHOW VIEWS;
++-------+
+| views |
++-------+
+0 rows in set

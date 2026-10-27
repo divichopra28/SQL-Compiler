@@ -1,0 +1,75 @@
+
+SQL> SELECT name FROM students WHERE cgpa > (SELECT AVG(cgpa) FROM students);
++--------+
+| name   |
++--------+
+| Rahul  |
+| Priya  |
+| Ananya |
+| Sneha  |
++--------+
+4 rows in set
+
+SQL> SELECT * FROM students WHERE id IN (SELECT student_id FROM courses);
++----+--------+-----+------+--------------------+--------+
+| id | name   | age | cgpa | email              | branch |
++----+--------+-----+------+--------------------+--------+
+|  1 | Rahul  |  20 |  8.5 | rahul@college.edu  | CSE    |
+|  2 | Priya  |  21 |  9.1 | priya@college.edu  | CSE    |
+|  4 | Ananya |  22 |  8.9 | ananya@college.edu | ECE    |
+|  6 | Sneha  |  18 |  9.4 | sneha@college.edu  | ECE    |
++----+--------+-----+------+--------------------+--------+
+4 rows in set
+
+SQL> SELECT name FROM students WHERE id NOT IN (SELECT student_id FROM courses WHERE student_id IS NOT NULL);
++--------+
+| name   |
++--------+
+| Aarav  |
+| Vikram |
++--------+
+2 rows in set
+
+SQL> SELECT name FROM students s WHERE EXISTS (SELECT 1 FROM courses c WHERE c.student_id = s.id);
++--------+
+| name   |
++--------+
+| Rahul  |
+| Priya  |
+| Ananya |
+| Sneha  |
++--------+
+4 rows in set
+
+SQL> SELECT name, (SELECT COUNT(*) FROM courses c WHERE c.student_id = s.id) AS n FROM students s ORDER BY n DESC, name;
++--------+---+
+| name   | n |
++--------+---+
+| Rahul  | 2 |
+| Ananya | 1 |
+| Priya  | 1 |
+| Sneha  | 1 |
+| Aarav  | 0 |
+| Vikram | 0 |
++--------+---+
+6 rows in set
+
+SQL> SELECT name, cgpa FROM students s WHERE cgpa = (SELECT MAX(cgpa) FROM students t WHERE t.branch = s.branch) ORDER BY name;
++-------+------+
+| name  | cgpa |
++-------+------+
+| Aarav |  7.4 |
+| Priya |  9.1 |
+| Sneha |  9.4 |
++-------+------+
+3 rows in set
+
+SQL> SELECT t.branch, t.total FROM (SELECT branch, COUNT(*) AS total FROM students GROUP BY branch) AS t WHERE t.total > 1;
++--------+-------+
+| branch | total |
++--------+-------+
+| CSE    |     2 |
+| ECE    |     2 |
+| IT     |     2 |
++--------+-------+
+3 rows in set

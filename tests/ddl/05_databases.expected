@@ -1,0 +1,62 @@
+
+SQL> CREATE DATABASE college;
+Query OK: database 'college' created. Switch to it with: USE college;
+
+SQL> SHOW DATABASES;
++-------------+--------+
+| database    | in use |
++-------------+--------+
+| college     |        |
+| sqlcompiler | *      |
++-------------+--------+
+2 rows in set
+
+SQL> USE college;
+Query OK: using database 'college' (0 tables).
+
+SQL> CREATE TABLE notes (nid INT PRIMARY KEY, body TEXT);
+Query OK: table 'notes' created (2 columns).
+
+SQL> INSERT INTO notes VALUES (1, 'stored in college.db');
+Query OK: 1 row inserted into 'notes'.
+
+SQL> SELECT * FROM notes;
++-----+----------------------+
+| nid | body                 |
++-----+----------------------+
+|   1 | stored in college.db |
++-----+----------------------+
+1 row in set
+
+SQL> SHOW TABLES;
++--------+
+| tables |
++--------+
+| notes  |
++--------+
+1 row in set
+
+SQL> USE sqlcompiler;
+Query OK: using database 'sqlcompiler' (4 tables).
+
+SQL> SHOW TABLES;
++-----------+
+| tables    |
++-----------+
+| courses   |
+| employees |
+| faculty   |
+| students  |
++-----------+
+4 rows in set
+
+SQL> DROP DATABASE college;
+Query OK: database 'college' dropped.
+
+SQL> SHOW DATABASES;
++-------------+--------+
+| database    | in use |
++-------------+--------+
+| sqlcompiler | *      |
++-------------+--------+
+1 row in set

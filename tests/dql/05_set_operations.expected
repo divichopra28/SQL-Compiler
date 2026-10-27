@@ -1,0 +1,60 @@
+
+SQL> SELECT name FROM students UNION SELECT name FROM faculty;
++-----------+
+| name      |
++-----------+
+| Rahul     |
+| Priya     |
+| Aarav     |
+| Ananya    |
+| Vikram    |
+| Sneha     |
+| Dr. Mehta |
+| Dr. Rao   |
++-----------+
+8 rows in set
+
+SQL> SELECT name FROM students UNION ALL SELECT name FROM faculty;
++-----------+
+| name      |
++-----------+
+| Rahul     |
+| Priya     |
+| Aarav     |
+| Ananya    |
+| Vikram    |
+| Sneha     |
+| Dr. Mehta |
+| Priya     |
+| Dr. Rao   |
++-----------+
+9 rows in set
+
+SQL> SELECT name FROM students INTERSECT SELECT name FROM faculty;
++-------+
+| name  |
++-------+
+| Priya |
++-------+
+1 row in set
+
+SQL> SELECT name FROM students EXCEPT SELECT name FROM faculty ORDER BY name;
++--------+
+| name   |
++--------+
+| Aarav  |
+| Ananya |
+| Rahul  |
+| Sneha  |
+| Vikram |
++--------+
+5 rows in set
+
+SQL> SELECT id FROM students EXCEPT SELECT student_id FROM courses;
++----+
+| id |
++----+
+|  3 |
+|  5 |
++----+
+2 rows in set
