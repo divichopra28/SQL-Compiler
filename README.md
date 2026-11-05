@@ -371,13 +371,4 @@ The compiler was built and tested in the stages below; the test folders follow t
 
 ---
 
-## 9. Design notes and limitations
 
-* Typing is deliberately strict (like a compiler): `WHERE name > 5` or `INSERT` of `'ten'` into an
-  `INT` column is a semantic error rather than a silent conversion.
-* Integer division truncates (`7 / 2 = 3`, `7.0 / 2 = 3.5`); `LIKE` is case-insensitive;
-  NULLs sort first in ascending order.
-* Users have no passwords; `CONNECT <user>` switches the current user (the built-in `admin` has
-  every privilege).
-* The engine keeps each intermediate relation in memory, which is ideal for demonstrating the
-  phases on classroom-sized data rather than millions of rows.
